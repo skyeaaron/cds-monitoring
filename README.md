@@ -14,7 +14,7 @@ Many healthcare institutions have errors in their clinical decision support (CDS
 In particular, we have found there to be a lack of tools for identifying unexpected changes to CDS, for verifying that intentional changes have been made correctly, and for finding downstream and upstream effects of changes (for example when rules reference each other or available medications change).
 
 
-# Features
+# Description
 1. BPA Audit Logs: Takes a diff of two audit logs. 
   1. Saves a summary of the total diff in an html file.
   2. Emails the master diff to CDS knowledge management personnel.
@@ -27,3 +27,5 @@ In particular, we have found there to be a lack of tools for identifying unexpec
 3. Override Comments Report: Summarizes number of alerts and comments for all BPAs receiving override comments.
   1. Send an email daily with comments written in the last day. Highlights "cranky comments" in yellow.
   2. Send an email once a month with the previous month's comments.
+4. Audit Metadata
+  1. Saves .csv file reporting on all changes to date in BPA logic. Based on historical output files of BPA Audit Log scripts.

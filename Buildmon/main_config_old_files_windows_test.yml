@@ -1,0 +1,10 @@
+input_dir: buildmon
+output_dir: Build Monitor Test Output
+templates_dir: Templates
+section_config_file: section_config_old_files.yml
+concept_email_list: Email Lists\buildmon_email_list.txt
+grouper_email_list: Email Lists\buildmon_email_list.txt
+patient_email_list: Email Lists\buildmon_patient_email_list.txt
+email_server: 
+from_address: 
+filename_format: datedescriptor.txt.gz

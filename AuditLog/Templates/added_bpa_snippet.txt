@@ -1,0 +1,46 @@
+<b style="display:block;margin-bottom:0">{{ id }}: 
+
+{% if recordtype == 'base' or recordtype == 'crit' %}
+
+	 <a href = "http://cds.partners.org/bpa/{{ recordtype }}/{{ id }}_{{ recordtype }}.html">{{ record_dict['name'] }}</a>
+
+{% elif recordtype == 'rule' %}
+
+	 {{ record_dict['name'] }}
+
+{% else %}
+
+	"Invalid recordtype specified."
+
+{% endif %}
+
+</b>
+
+<ul style="margin-top:0;">
+
+<li style="margin-top:0;">BPA has been released since prior log. BPA is in the new log only.
+
+{% if record_dict['crit'] %}
+
+    <li>The criteria linked to this BPA are:
+    
+    <ul style="margin-top:0;">
+    
+    {% for crit in record_dict['crit'] %}
+        		
+        <li>
+        {{ crit }}: <a href = "http://cds.partners.org/bpa/crit/{{ crit }}_crit.html">{{ record_dict['crit'][crit] }}</a>
+        </li>
+        
+    {% endfor %}
+    
+    </ul>
+    </li>
+    
+{% else %}
+
+    <li>No criteria are linked to this BPA.</li>
+
+{% endif %}
+
+</ul>

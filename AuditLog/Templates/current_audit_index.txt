@@ -1,0 +1,22 @@
+<html>
+
+<head>
+<title>{{ title }}</title>
+<a name="#top" id="top"></a>
+</head>
+
+<body style="font-family: Consolas, monaco, monospace">
+
+<font size="+2"><b>{{ title }}</b></font><br>
+<font size="+1">{{ asofdate }}</font><br>
+
+<ul>
+{% for record in records %}
+
+	<li><a href="http://cds.partners.org/bpa/{{ baseorcrit }}/{{ record[0] }}_{{ baseorcrit }}.html">{{ record[0] }}: {{ record[1] }}</a><br>
+
+{% endfor %}
+</ul>
+
+</body>
+</html>

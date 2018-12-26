@@ -1,0 +1,11 @@
+<html>
+<title>{{ id }}</title>
+<body style="font-family: Consolas, monaco, monospace">
+<font size="+2"><b>{{ id }}</b></font><br><br>
+
+    {% with id = id, current_dict = current_dict %}
+    {% include "current_logic_snippet.txt" %}
+    {% endwith %}
+
+</body>
+</html>

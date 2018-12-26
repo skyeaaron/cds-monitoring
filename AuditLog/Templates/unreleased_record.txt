@@ -1,0 +1,24 @@
+<html>
+
+<head>
+<title>{{ title }}</title>
+</head>
+
+<body style="font-family: Consolas, monaco, monospace">
+
+<font size="+2"><b>{{ title }}</b></font><br><br>
+Record is no longer live, so there is no current logic to report.<br>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<title>{{ bpa }}</title>
+<body style="font-family: Consolas, monaco, monospace">
+Comparison between {{ date1 }} and {{ date2 }}<br><br>
+
+{% if category == "Duped" %}
+
+	{% with id = base, basename = base_dict['name'], recordtype = 'base', displaytext = 'BPA has multiple inconsistent entries in one of the base logs and should be investigated.' %}
+        {% include "single_bullet_snippet.txt" %}
+        {% endwith %}
+
+{% endif %}
+
+{% if category == "Error" %}
+
+	{% with id = base, basename = base_dict['name'], recordtype = 'base', displaytext = 'BPA could not be categorized and should be investigated.' %}
+        {% include "single_bullet_snippet.txt" %}
+        {% endwith %}
+
+{% endif %}
+
+{% if category == "Deleted" %}
+
+	{% with id = base, basename = base_dict['name'], recordtype = 'base', displaytext = 'BPA has been unreleased since prior log. BPA is in the old log only.' %}
+        {% include "single_bullet_snippet.txt" %}
+        {% endwith %}
+
+{% endif %}
+
+{% if category == "Added" %}
+
+	{% with id = base, record_dict = base_dict, recordtype = 'base' %}
+    	{% include "added_bpa_snippet.txt" %}
+	{% endwith %}
+
+{% endif %}
+
+
+{% if category == "Edited" or category == 'Crit Edited Only' %}
+
+        {% with id = base, record_dict = base_dict, recordtype = 'base' %}
+        {% include "edited_bpa_snippet.txt" %}
+        {% endwith %}
+
+{% endif %}
+
+</body>
+</html>

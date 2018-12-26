@@ -1,0 +1,89 @@
+{% for field in current_dict['fields'] %}
+
+    <b>{{ field[0] }}:</b><br>
+    
+    {% for row in field[1] %}
+    
+    {{ row }}<br>
+    
+    {% endfor %}
+    
+    <br>
+    
+{% endfor %}
+
+
+{% for table in current_dict['tables'] %}
+
+    <b>{{ table[0] }}:</b><br>
+    
+    <table style="border-collapse:collapse; width:100%; font-family: Consolas, monaco, monospace;">
+    <tr>
+    
+    {% for col in table[1] %}
+    
+        <th style="border-bottom:1px solid; border-top:1px solid; vertical-align:middle; text-align:left;">{{ col }}</th>
+                
+    {% endfor %}
+    
+    </tr>
+    
+    {% for row in table[2] %}
+				
+        <tr>
+			
+        {% for col in row %}				
+
+            <td style="border-bottom:1px solid; vertical-align:middle">{{ col }}</td>
+
+        {% endfor %}
+
+        </tr>
+        	
+    {% endfor %}	
+    
+    </table>
+    <br>
+
+{% endfor %}
+
+{% if current_dict['crit'] %}
+
+    <b>Description of Linked Criteria:</b><br>
+    
+    <ul>
+    
+    {% for crit in current_dict['crit'] %}
+    
+        <li><font size="+1"><b>{{ crit }}</b></font><br><br>
+    
+        {% with id = crit, current_dict = current_dict['crit'][crit] %}
+        {% include "current_logic_snippet.txt" %}
+        {% endwith %}
+    
+    {% endfor %}
+    
+    </ul>
+
+{% endif %}
+
+
+{% if current_dict['rule'] %}
+
+    <b>Description of Associated CER Rules:</b><br>
+    
+    <ul>
+    
+    {% for rule in current_dict['rule'] %}
+    
+        <li><font size="+1"><b>{{ rule }}</b></font><br><br>
+    
+        {% with id = rule, current_dict = current_dict['rule'][rule] %}
+        {% include "current_logic_snippet.txt" %}
+        {% endwith %}
+    
+    {% endfor %}
+    
+    </ul>
+
+{% endif %}

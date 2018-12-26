@@ -1,0 +1,22 @@
+<b style="display:block;margin-bottom:0">{{ id }}: 
+
+{% if recordtype == 'base' or recordtype == 'crit' %}
+
+	 <a href = "http://cds.partners.org/bpa/{{ recordtype }}/{{ id }}_{{ recordtype }}.html">{{ bpaname }}</a>
+
+{% elif recordtype == 'rule' %}
+
+	 {{ bpaname }}
+
+{% else %}
+
+	Incorrect recordtype specified.
+
+{% endif %}
+</b>
+
+<ul style="margin-top:0;">
+<li style="margin-top:0;">
+{{ displaytext }}
+</li>
+</ul>

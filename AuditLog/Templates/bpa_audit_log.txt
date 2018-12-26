@@ -1,0 +1,104 @@
+<html>
+
+<head>
+<title>{{ title }}</title>
+</head>
+
+<body style="font-family: Consolas, monaco, monospace">
+
+<font size="+2"><b>Summary</b></font><br><br>
+Comparison between {{ date1 }} and {{ date2 }}<br><br>
+
+<u>Count of BPAs</u><br>
+Total:  {{ SummarySection['Total BPAs'] }}<br>
+{% for section in SummarySection['Count Sections'] %}
+    {{ SummarySection['Display Text'][section] }}: {{ SummarySection['Count Sections'][section] }}<br>
+{% endfor %}
+<br>
+
+{% if HeaderSection %}
+
+    <font size="+2"><b>Fields were changed</b></font><br><br>
+
+    Fields were changed between files. Edits cannot be reported.<br>
+    
+{% endif %}
+
+{% if DupSection %}
+
+    <font size="+2"><b>BPAs with Duplications</b></font><br><br>
+
+    {% for bpa in DupSection %}
+
+        {% with id = bpa, bpaname = DupSection[bpa]['name'], recordtype = 'base', displaytext = 'BPA has multiple inconsistent entries in one of the base logs and should be investigated.' %}
+        {% include "single_bullet_snippet.txt" %}
+        {% endwith %}
+        
+    {% endfor %}
+    
+{% endif %}
+
+{% if ErrorSection %}
+
+    <font size="+2"><b>BPAs with Error</b></font><br><br>
+
+    {% for bpa in ErrorSection %}
+    
+        {% with id = bpa, bpaname = ErrorSection[bpa]['name'], recordtype = 'base', displaytext = 'BPA could not be categorized and should be investigated.' %}
+        {% include "single_bullet_snippet.txt" %}
+        {% endwith %}
+        
+    {% endfor %}
+    
+{% endif %}
+
+{% if DelSection %}
+
+    <font size="+2"><b>Unreleased BPAs</b></font><br><br>
+
+    {% for bpa in DelSection %}
+    
+        {% with id = bpa, bpaname = DelSection[bpa]['name'], recordtype = 'base', displaytext = 'BPA has been unreleased since prior log. BPA is in the old log only.' %}
+        {% include "single_bullet_snippet.txt" %}
+        {% endwith %}
+        
+    {% endfor %}
+    
+{% endif %}
+
+
+{% if AddSection %}
+
+    <font size="+2"><b>Released BPAs</b></font><br><br>
+
+    {% for bpa in AddSection %}
+
+        {% with id = bpa, record_dict = AddSection[bpa], recordtype = 'base' %}
+        {% include "added_bpa_snippet.txt" %}
+        {% endwith %}
+    
+    {% endfor %}
+    
+{% endif %}
+
+
+{% if EditSection %}
+
+    <font size="+2"><b>Edited BPAs</b></font><br><br>
+
+
+    {% for bpa in EditSection %}
+    
+        {% with record_dict=EditSection[bpa], id = bpa, recordtype = 'base' %}
+        {% include "edited_bpa_snippet.txt" %}
+        {% endwith %}
+        <br>
+        
+    {% endfor %}
+
+    
+{% endif %}
+
+
+</body>
+</html>

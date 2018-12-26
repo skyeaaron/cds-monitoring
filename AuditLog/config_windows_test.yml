@@ -1,0 +1,14 @@
+audit_dir: bpaaudit$\BPA Audit Daily
+include_cer: True
+cer_dir: bpaaudit$\CER
+#changes_dirs must be a list
+changes_dirs: 
+    - bpaaudit$\changes
+#current_dirs must be a list
+current_dirs: 
+    - bpaaudit$\current
+templates_dir: Templates
+success_email_list: Email Lists\test_email_list.txt
+failure_email_list: Email Lists\test_email_list.txt
+email_server: 
+from_address: 

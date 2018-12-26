@@ -1,0 +1,87 @@
+<html>
+
+<head>
+<title>{{ title }}</title>
+</head>
+
+<body style="font-family: Consolas, monaco, monospace">
+
+<section style="font-family: Consolas, monaco, monospace;">
+
+<font size="+2"><b><a name="top" id="top">{{ title }}</a></b></font><br>
+<font size="+1">Comparison between {{ startdate }} and {{ enddate}} </font><br>
+
+{% for section in sectionorder %}
+
+	&bull;&nbsp;<a href="#{{ section }}">{{ section }}</a><br>
+
+{% endfor %}
+
+</section>
+
+<br>
+
+{% for section in sectionorder %}	
+	
+	<section style="font-family: Consolas, monaco, monospace;">
+
+	<font size="+2"><b><a name="{{ section }}" id="{{ section }}">{{ section }}</a></b></font><br>
+
+	Number in both files: {{ sections[section]['in both'] }}<br>
+
+	{% if sections[section]['changes'] == [] %}
+		No records added or deleted<br>
+
+	{% else %}
+
+		{% if sections[section]['truncated'] == True %}
+
+			Too many changes to report. Changes truncated to first 3,000 additions and 3,000 deletions.<br>
+
+		{% endif %}
+
+		Records added and deleted:<br>
+
+		<table style="border-collapse:collapse; width:100%; font-family: Consolas, monaco, monospace;">
+		<tr>
+		{% for col in sections[section]['header'] %}
+			<th style="border-bottom:1px solid; border-top:1px solid; vertical-align:middle; text-align:left;">{{ col }}</th>
+		{% endfor %}
+		</tr>
+
+		{% for row in sections[section]['changes'] %}
+			
+			{% if row[0] == "+ " %}
+
+				<tr>
+				<td style="width:15%; border-bottom:1px solid; vertical-align:middle"><span style="background-color:#83FF7B; white-space:pre">{{ row[0] }}{{ row[1] }}</span></td>
+				{% for col in row[2:] %}
+					<td style="border-bottom:1px solid; vertical-align:middle"><span style="background-color:#83FF7B; white-space:pre">{{ col }}</span></td>
+				{% endfor %}
+				</tr>
+
+			{% else %}
+				
+				<tr>
+				<td style="width:15%; border-bottom:1px solid; vertical-align:middle"><span style="background-color:#FF3330; white-space:pre">{{ row[0] }}{{ row[1] }}</span></td>
+				{% for col in row[2:] %}				
+					<td style="border-bottom:1px solid; vertical-align:middle"><span style="background-color:#FF3330; white-space:pre">{{ col }}</span></td>
+				{% endfor %}
+				</tr>
+
+			{% endif %}
+	
+		{% endfor %}	
+		
+		</table>
+		
+	{% endif %}
+
+	<a href=#top>Back to top</a><br><br>
+	</section>
+	
+
+{% endfor %}
+
+</body>
+</html>

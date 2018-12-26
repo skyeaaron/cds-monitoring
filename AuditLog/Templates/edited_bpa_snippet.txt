@@ -1,0 +1,163 @@
+
+
+
+<b style="display:block;margin-bottom:0">{{ id }}: 
+
+{% if recordtype == 'base' or recordtype == 'crit' %}
+
+	 <a href = "http://cds.partners.org/bpa/{{ recordtype }}/{{ id }}_{{ recordtype }}.html">{{ record_dict['name'] }}</a>
+
+{% elif recordtype == 'rule' %}
+
+	 {{ record_dict['name'] }}
+
+{% else %}
+
+	Incorrect recordtype specified.
+
+{% endif %}
+
+</b>
+
+
+<ul style="margin-top:0;margin-bottom:0;">
+{% for field in record_dict['field edits'] %}
+    
+    <li style="margin-top:10px; margin-bottom:0;">{{ field }} was edited:
+    
+    {% for row in record_dict['field edits'][field] %}
+    
+        {% if row[0] == '  ' %}
+        
+           <br>&nbsp;&nbsp{{ row[1] }}
+        
+        {% elif row[0] == '- ' %}
+            
+            <br><span style="background-color:#FF3330">{{ row[0] }}{{ row[1] }}</span>
+        
+        {% elif row[0] == '+ ' %}
+        
+            <br><span style="background-color:#83FF7B">{{ row[0] }}{{ row[1] }}</span>
+        
+        {% elif row[0] == '? ' %}
+        
+        {% else %}
+        
+            <br>error: {{ row }}
+    
+        {% endif %}
+    
+    {% endfor %}
+    </li>
+
+{% endfor %}
+
+{% if record_dict['table edits'] %}
+
+    {% for table in record_dict['table edits'] %}
+    
+        <li style="margin-top:10px; margin-bottom:0;">{{ table }} was edited:<br>
+        
+        <table frame=box; style="border-collapse:collapse; width:100%; font-family: Consolas, monaco, monospace">
+        <tr>
+        
+        {% for col in record_dict['table edits'][table]['table header'] %}
+        
+            <th style="border-bottom:1px solid; border-top:1px solid; vertical-align:middle; text-align:left;">{{ col }}</th>
+                    
+        {% endfor %}
+        
+        </tr>
+        
+        {% for row in record_dict['table edits'][table]['diff'] %}
+    			
+            {% if row[0] == "+ " %}
+    
+    					<tr>
+    					<td style="border-bottom:1px solid; vertical-align:middle"><span style="background-color:#83FF7B">{{ row[0] }}{{row[1]}}</td>
+    					{% for col in row[2:] %}
+    					<td style="border-bottom:1px solid; vertical-align:middle"><span style="background-color:#83FF7B">{{ col }}</td>
+    					{% endfor %}
+    					</tr>
+    
+            {% elif row[0] == "- " %}
+    				
+    					<tr>
+    					<td style="border-bottom:1px solid; vertical-align:middle"><span style="background-color:#FF3330">{{ row[0] }}{{row[1]}}</td>
+    					{% for col in row[2:] %}				
+    						<td style="border-bottom:1px solid; vertical-align:middle"><span style="background-color:#FF3330">{{ col }}</td>
+    					{% endfor %}
+    					</tr>
+                    
+            {% elif row[0] == "  " %}
+    				
+    					<tr>
+    					<td style="border-bottom:1px solid; vertical-align:middle">&nbsp;&nbsp;{{row[1]}}</td>
+    					{% for col in row[2:] %}				
+    						<td style="border-bottom:1px solid; vertical-align:middle">{{ col }}</td>
+    					{% endfor %}
+    					</tr>
+            
+            {% else %}
+    
+            {% endif %}
+    	
+        {% endfor %}	
+        
+        </table>
+    	</li>
+    
+    {% endfor %}
+    
+
+{% endif %}
+
+{% if record_dict['rule edits'] %}
+
+    <li style="margin-top:10px; margin-bottom:0;">At least one CER rule was edited:
+    
+    <ul style="list-style-type:none; padding-left:0px; margin-left:0">
+
+    {% for rule in record_dict['rule edits'] %}
+    
+        <li style="margin-top:10px; margin-bottom:0;">
+        
+        {% with record_dict=record_dict['rule edits'][rule], id = rule, recordtype = 'rule' %}
+        {% include "edited_bpa_snippet.txt" %}
+        {% endwith %}
+        
+        </li>
+        
+    {% endfor %}
+
+    </ul>
+    </li>
+
+{% endif %}
+
+{% if record_dict['crit edits'] %}
+
+    <li style="margin-top:10px; margin-bottom:0;">At least one linked criterion was edited:
+
+    <ul style="list-style-type:none; padding-left:0px; margin-left:0">
+
+    {% for crit in record_dict['crit edits'] %}
+        
+        <li style="margin-top:10px;margin-bottom:0;">
+        
+        {% with record_dict=record_dict['crit edits'][crit], id = crit, recordtype = 'crit' %}
+        {% include "edited_bpa_snippet.txt" %}
+        {% endwith %}
+        
+        </li>
+        
+    {% endfor %}
+
+    </ul>
+    </li>
+
+{% endif %}
+
+
+
+</ul>

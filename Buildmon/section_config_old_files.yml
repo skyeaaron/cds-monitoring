@@ -1,0 +1,153 @@
+Allergens:
+    type: simple
+    email: concept
+    file_descriptor: 'allergen'
+    datatypes: [int,str,str,str]
+    header: ['Allergen ID', 'Allergen Name', 'Record Status', 'EditNM']
+    id_col: 0 
+    name_col: 1
+Allergens Selected for Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptallergen'
+    datatypes: [int]
+    header: ['Allergen ID']
+    id_col: 0 
+    labels: Allergens
+Departments:
+    type: simple
+    email: concept
+    file_descriptor: 'dep'
+    datatypes: [int,str,str]
+    header: ['Dept ID', 'Dept Name', 'Dept Specialty']
+    id_col: 0
+    name_col: 1
+Department Groupers:
+    type: simple
+    email: grouper
+    file_descriptor: 'depgrouper'
+    datatypes: [int,str]
+    header: ['Grouper ID', 'Grouper Name']
+    id_col: 0
+    name_col: 1
+Department Grouper Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'depgroupermap'
+    datatypes: [int,int]
+    header: ['Grouper ID', 'Dept ID']
+    container: Department Groupers
+    content: Departments
+Diagnoses:
+    type: simple
+    email: concept
+    file_descriptor: 'diag'
+    datatypes: [int,str,str]
+    header: ['Diagnosis ID', 'Diagnosis Name', 'ICD 10 Code']
+    id_col: 0
+    name_col: 1
+Diagnosis Groupers:
+    type: simple
+    email: grouper
+    file_descriptor: 'diaggrouper'
+    datatypes: [int,str]
+    header: ['Grouper ID', 'Grouper Name']
+    id_col: 0
+    name_col: 1
+Diagnosis Grouper Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'diaggroupermap'
+    datatypes: [int,int]
+    header: ['Grouper ID', 'Concept ID']
+    container: Diagnosis Groupers
+    content: Diagnoses
+Diagnoses Entered for Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptdiag'
+    datatypes: [int]
+    header: ['Diagnosis ID']
+    id_col: 0
+    labels: Diagnoses
+Medications:
+    type: simple
+    email: concept
+    file_descriptor: 'medt'
+    datatypes: [int,str,str,str,str]
+    header: ['Med ID', 'Med Name', 'Pharm Class', 'Pharm Subclass', 'Generic']
+    id_col: 0
+    name_col: 1
+Medication Groupers:
+    type: simple
+    email: grouper
+    file_descriptor: 'medgrouper'
+    datatypes: [int, str]
+    header: ['Grouper ID', 'Grouper Name']
+    id_col: 0
+    name_col: 1
+Medication Grouper Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'medgroupermap'
+    datatypes: [int,int]
+    header: ['Grouper ID', 'Med ID']
+    container: Medication Groupers
+    content: Medications
+Medications Prescribed to Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptmed'
+    datatypes: [int]
+    header: ['Med ID']
+    labels: Medications
+    id_col: 0
+Lab Components:
+    type: simple
+    email: concept
+    file_descriptor: 'component'
+    datatypes: [int,str]
+    header: ['Component ID', 'Component Name']
+    id_col: 0
+    name_col: 1
+Lab Common Names:
+    type: simple
+    email: concept
+    file_descriptor: 'commonnm'
+    datatypes: [str]
+    header: ['Common Name']
+    id_col: 0
+Lab Common Name Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'commonnmmap'
+    datatypes: [str, int]
+    header: ['Common Name', 'Component ID']
+    container: Lab Common Names
+    content: Lab Components
+Lab Base Names:
+    type: simple
+    email: concept
+    file_descriptor: 'basenm'
+    datatypes: [str]
+    header: ['Base Name']
+    id_col: 0
+Lab Base Name Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'basenmmap'
+    datatypes: [str, int]
+    header: ['Base Name', 'Component ID']
+    container: Lab Base Names
+    content: Lab Components
+Lab Components Ordered for Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptcomponent'
+    datatypes: [int]
+    header: ['Component ID']
+    id_col: 0 
+    labels: Lab Components
+Concept Order: ['Allergens', 'Departments', 'Diagnoses', 'Medications', 'Lab Base Names', 'Lab Common Names', 'Lab Components']
+Grouper Order: ['Department Groupers', 'Department Grouper Mapping', 'Diagnosis Groupers', 'Diagnosis Grouper Mapping', 'Medication Groupers', 'Medication Grouper Mapping', 'Lab Base Name Mapping', 'Lab Common Name Mapping']
+Patient Order: ['Medications Prescribed to Patients', 'Diagnoses Entered for Patients', 'Allergens Selected for Patients', 'Lab Components Ordered for Patients']

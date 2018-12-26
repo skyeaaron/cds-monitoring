@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>{{ title }}</title>
+</head>
+<body>
+
+<font size="+3"><b>{{ title }}</b></font><br>
+<font size="+2">{{ startdate }} to {{ enddate}} </font><br>
+<br>
+
+{% for bpa in bpa_order %}
+	<b><a href='http://cds.partners.org/bpa/base/{{ bpas[bpa]['bpa_id'] }}_base.html'>{{ bpas[bpa]['bpa_name'] }}</a> [{{ bpas[bpa]['bpa_id'] }}]</b><br>
+	<i>{{ bpas[bpa]['count_alerts'] }} alerts, {{ bpas[bpa]['count_comments'] }} comments, {{bpas[bpa]['count_cranky']}} cranky</i><br>
+	{% for comment in bpas[bpa]['comments'] %}
+		{% if comment[1] == 1 %}
+			<span style="background-color:yellow">{{ comment[0] }}</span><br>
+		{% else %}
+			{{ comment[0] }}<br>
+		{% endif %}
+	{% endfor %}
+	<br>
+{% endfor %}
+
+
+</body>
+</html>

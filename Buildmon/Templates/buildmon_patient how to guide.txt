@@ -1,0 +1,14 @@
+Build Monitor Patient Data How-To Guide
+
+This looks for all "concepts" that have ever been used with real patients.
+It compares data in all patient charts through yesterday to the data in all patient charts through today.
+It reports on records that were added for the first time today, or that were deleted from the database today.
+Generally we expect most changes to be new additions, and relatively few changes to be deletions.
+Since the database maintains a historical record of all orders, cancelling an order is not enough to delete it from the database.
+Thus, for example, if this report shows a deleted medication, that usually means that the medication was removed entirely from the reference table and replaced with something else.
+
+Medication Prescribed to Patients
+This table reports on changes to Medication ID.
+If a Medication ID was prescribed to a patient for the first time ever today (in comparison to whatever the historical record said yesterday), then there will be a line highlighted in green with a plus sign.
+If a Medication ID has been removed from all historical order records and no longer appears anywhere in the patient data, then there will be a row in the table highlighted in red.
+Other fields in the table report the name of the medication and the pharm class, pharm subclass, and generic dsc that the med rolls up under.

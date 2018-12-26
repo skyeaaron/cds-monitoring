@@ -1,0 +1,286 @@
+Allergens:
+    type: simple
+    email: concept
+    file_descriptor: 'allergen'
+    datatypes: [int,str,str,str]
+    header: ['Allergen ID', 'Allergen Name', 'Record Status', 'EditNM']
+    id_col: 0 
+    name_col: 1
+Allergens Selected for Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptallergen'
+    datatypes: [int]
+    header: ['Allergen ID']
+    id_col: 0
+    labels: Allergens
+ATC:
+    type: simple
+    email:
+    file_descriptor: 'ERX_ATC'
+    datatypes: [int, str]
+    id_col: 0
+    name_col: 1
+Departments:
+    type: simple
+    email: concept
+    file_descriptor: 'dep'
+    datatypes: [int,str,str]
+    header: ['Dept ID', 'Dept Name', 'Dept Specialty']
+    id_col: 0
+    name_col: 1
+Department Groupers:
+    type: simple
+    email: grouper
+    file_descriptor: 'depgrouper'
+    datatypes: [int,str]
+    header: ['Grouper ID', 'Grouper Name']
+    id_col: 0
+    name_col: 1
+Department Grouper Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'depgroupermap'
+    datatypes: [int,int]
+    header: ['Grouper ID', 'Dept ID']
+    container: Department Groupers
+    content: Departments
+Diagnosis Groupers:
+    type: simple
+    email: grouper
+    file_descriptor: 'diaggrouper'
+    datatypes: [int,str]
+    header: ['Grouper ID', 'Grouper Name']
+    id_col: 0
+    name_col: 1
+Diagnoses Entered for Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptdiag'
+    datatypes: [int, str]
+    header: ['Diagnosis ID', 'Diagnosis Name']
+    id_col: 0
+    name_col: 1
+Diagnosis Grouper to SNOMED Mapping:
+    type: map
+    email: grouper
+    file_descriptor: VCG_SNOMED
+    datatypes: [int, str, str]
+    header: [Diagnosis Grouper ID, SNOMED ID, SNOMED Name]
+    container: Diagnosis Groupers
+    content: SNOMED
+Diagnosis Grouper to ICD Mapping:
+    type: map
+    email: grouper
+    file_descriptor: VCG_ICD_CODES
+    datatypes: [int, str]
+    header: [Diagnosis Grouper ID, Code Set, ICD Code]
+    container: Diagnosis Groupers
+    content: ICD10
+    container_col: 0
+    content_col: 2
+Diagnosis Grouper to ATC Mapping:
+    type: map
+    email: grouper
+    file_descriptor: VCG_ATC
+    datatypes: [int, int, str]
+    header: [Grouper ID, ATC Class ID, ATC Class Name]
+    container: Diagnosis Groupers
+    content: Diagnosis Grouper to ATC Mapping
+    id_col: 1
+    name_col: 2
+ICD10:
+    type: simple
+    email: concept
+    file_descriptor: icd10
+    datatypes: [str]
+    header: ['ICD-10 Code']
+    id_col: 0
+Medications:
+    type: simple
+    email: concept
+    file_descriptor: 'med'
+    datatypes: [int,str,str,str,str]
+    header: ['Med ID', 'Med Name', 'Pharm Class', 'Pharm Subclass', 'Generic']
+    id_col: 0
+    name_col: 1
+Medication Groupers:
+    type: simple
+    email: grouper
+    file_descriptor: 'medgrouper'
+    datatypes: [int, str]
+    header: ['Grouper ID', 'Grouper Name']
+    id_col: 0
+    name_col: 1
+Medication Grouper to AHFS Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'VCG_AHFS_CODE'
+    datatypes: [int,str]
+    header: ['Grouper ID', 'AHFS Code']
+    container: Medication Groupers
+Medication Grouper to Pharm Subclass Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'VCG_PHARM_SUBCLASS'
+    datatypes: [int, int, str]
+    header: ['Medication Grouper ID', 'Pharm Subclass ID']
+    container: Medication Groupers
+    content: Pharm Subclass
+Medication Grouper to Pharm Class Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'VCG_PHARM_SUBCLASS'
+    datatypes: [int, int, str]
+    header: ['Medication Grouper ID', 'Pharm Class ID', 'Pharm Class Name']
+    container: Medication Groupers
+    content: Medication Grouper to Pharm Class Mapping
+    id_col: 1
+    name_col: 2
+Medication Grouper to RXNORM Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'VCG_RXNORM_CODE'
+    datatypes: [int, int]
+    header: ['Medication Grouper ID', 'RxNorm Code']
+    container: Medication Groupers
+Medication Grouper to Simple Generic Mapping:
+    type: map
+    email: grouper
+    file_descriptor: VCG_SIMPLE_GEN_MED
+    datatypes: [int, int]
+    header: ['Medication Grouper ID', 'Simple Generic ID']
+    container: Medication Groupers
+    content: Medications
+    container_cols: [0]
+    content_cols: [1]
+Medications Prescribed to Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptmed'
+    datatypes: [int]
+    header: ['Med ID']
+    labels: Medications
+    id_col: 0
+Lab Components:
+    type: simple
+    email: concept
+    file_descriptor: 'component'
+    datatypes: [int,str]
+    header: ['Component ID', 'Component Name']
+    id_col: 0
+    name_col: 1
+Lab Common Names:
+    type: simple
+    email: concept
+    file_descriptor: 'commonnm'
+    datatypes: [str]
+    header: ['Common Name']
+    id_col: 0
+Lab Common Name Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'commonnmmap'
+    datatypes: [str, int]
+    header: ['Common Name', 'Component ID']
+    container: Lab Common Names
+    content: Lab Components
+Lab Base Names:
+    type: simple
+    email: concept
+    file_descriptor: 'basenm'
+    datatypes: [str]
+    header: ['Base Name']
+    id_col: 0
+Lab Base Name Mapping:
+    type: map
+    email: grouper
+    file_descriptor: 'basenmmap'
+    datatypes: [str, int]
+    header: ['Base Name', 'Component ID']
+    container: Lab Base Names
+    content: Lab Components
+Lab Components Ordered for Patients:
+    type: simple
+    email: patient
+    file_descriptor: 'ptcomponent'
+    datatypes: [int]
+    header: ['Component ID']
+    id_col: 0 
+    labels: Lab Components
+Procedures:
+    type: simple
+    email: grouper
+    file_descriptor: proc
+    datatypes: [int, str, str]
+    header: ['Procedure ID', 'Procedure Code', 'Procedure Name']
+    id_col: 0
+    name_col: 1
+Questions:
+    type: simple
+    email:
+    file_descriptor: question
+    datatypes: [int, str]
+    header: [Question ID, Question Name]
+    id_col: 0
+    name_col: 1
+Pharm Class:
+    type: simple
+    email:
+    file_descriptor: PHARM_CLASS
+    header: ['Pharm Class ID', 'Pharm Class Name']
+    datatypes: [int, str]
+    id_col: 0
+    name_col: 1
+Pharm Subclass:
+    type: simple
+    email: 
+    file_descriptor: PHARM_SUBCLASS
+    header: ['Pharm Subclass ID', 'Pharm Subclass Name']
+    datatypes: [int, str]
+    id_col: 0
+    name_col: 1
+Procedure to Order Question Map:
+    type: map
+    email: grouper
+    file_descriptor: ORD_QUEST
+    datatypes: [int, int, str]
+    header: ['Procedure ID', 'Order Question ID', 'Response']
+    container: Procedures
+    content: Questions
+    container_cols: [0]
+    content_cols: [1]
+SNOMED:
+    type: simple
+    email: concept
+    file_descriptor: EDG_SNOMED
+    datatypes: [str, str]
+    header: ['SNOMED ID', 'SNOMED Name']
+    id_col: 0
+    name_col: 1
+Concept Order:
+    - 'Allergens'
+    - 'Departments'
+    - 'ICD10'
+    - 'Medications'
+    - 'Lab Base Names'
+    - 'Lab Common Names'
+    - 'Lab Components'
+    - 'SNOMED'
+Grouper Order:
+    - 'Department Groupers'
+    - 'Department Grouper Mapping'
+    - 'Diagnosis Groupers'
+    - 'Diagnosis Grouper Mapping'
+    - 'Medication Groupers'
+    - Medication Grouper to AHFS Mapping
+    - 'Medication Grouper to Simple Generic Mapping'
+    - 'Lab Base Name Mapping'
+    - 'Lab Common Name Mapping'
+    - 'Procedures'
+    - 'Procedure to Order Question Map'
+Patient Order:
+    - 'Medications Prescribed to Patients'
+    - 'Diagnoses Entered for Patients'
+    - 'Allergens Selected for Patients'
+    - 'Lab Components Ordered for Patients'

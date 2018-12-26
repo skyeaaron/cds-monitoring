@@ -1,0 +1,11 @@
+#filepath to sql query
+input_file: Override_Comments.sql
+#filepath where output csv file should be saved
+output_dir: Override Comments Output Files
+#file path to the directory containing html templates
+templates_dir: Templates
+#file path to the email list
+email_list: Email Lists\test_email_list.txt
+email_server: 
+from_address: 
+frequency: daily
